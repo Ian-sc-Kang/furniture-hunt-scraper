@@ -1,10 +1,16 @@
 {
-  "name": "furniture-scan",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "name": "furniture-scan-api",
+  "version": "1.0.0",
+  "description": "A powerful web scraping API that aggregates furniture data from multiple major retailers",
+  "author": "Your Name",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "keywords": ["furniture", "web-scraping", "api", "nestjs", "typescript", "puppeteer", "price-comparison"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/furniture-scan-scraper.git"
+  },
+  "homepage": "https://github.com/your-username/furniture-scan-scraper#readme",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -21,6 +27,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^2.3.2",
     "@nestjs/core": "^9.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
