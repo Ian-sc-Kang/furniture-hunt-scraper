@@ -2,8 +2,6 @@
 
 A powerful web scraping API built with NestJS that aggregates furniture data from multiple major retailers. This service automatically scans and compares furniture prices across various online stores, providing a unified API for furniture search and price comparison.
 
-![Furniture Scan API](https://via.placeholder.com/800x200/2D3748/FFFFFF?text=Furniture+Scan+API)
-
 ## Features
 
 🔍 **Multi-Store Scanning** - Searches across 7+ major furniture retailers  
