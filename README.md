@@ -295,4 +295,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
+## ⚠️ Important Notice
+
+**Website Layout Dependencies**: This scraper relies on the current HTML structure and CSS selectors of the supported retailer websites. If any of these websites change their layout, design, or structure, the scraping functionality for those specific stores may no longer work as intended. Regular maintenance and updates to the scraper selectors may be required to ensure continued functionality.
+
 **Disclaimer**: This tool is for educational and research purposes. Please respect the robots.txt and terms of service of the websites being scraped.
