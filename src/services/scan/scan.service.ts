@@ -16,8 +16,8 @@ import { Furniture } from '../furniture/furniture.entity';
 @Injectable()
 export class ScanService {
   private readonly logger = new Logger(ScanService.name);
-  
-  private readonly SUPPORTED_STORES = [
+
+  private readonly SUPPORTED_STORES: string[] = [
     'costco',
     'ashley',
     'ikea',
@@ -25,7 +25,7 @@ export class ScanService {
     'livingSpaces',
     'homedepot',
     'wayfair',
-  ] as const;
+  ];
 
   constructor(
     private readonly costcoScanService: CostcoScanService,
@@ -37,10 +37,10 @@ export class ScanService {
     private readonly homedepotScanService: HomedepotScanService,
     private readonly wayfairScanService: WayfairScanService,
   ) {}
-  
+
   /**
    * Scans multiple furniture retailers for products matching the given keyword
-   * 
+   *
    * @param keyword - The search term to look for
    * @returns Promise<Furniture[]> - Array of furniture items found across all stores
    */
@@ -52,7 +52,7 @@ export class ScanService {
 
     const sanitizedKeyword = keyword.trim().toLowerCase();
     this.logger.log(`Starting scan for keyword: ${sanitizedKeyword}`);
-    
+
     // First, check if we have cached results for this keyword
     const results = await this.furnitureService.findAllByKeyword(
       sanitizedKeyword,
@@ -60,7 +60,9 @@ export class ScanService {
     );
 
     // Determine which stores need to be scanned based on existing results
-    const scannedStores = [...new Set(results.map((result) => result.storeName))];
+    const scannedStores = [
+      ...new Set(results.map((result) => result.storeName)),
+    ];
     const storesToScan = this.SUPPORTED_STORES.filter(
       (store) => !scannedStores.includes(store),
     );
@@ -70,9 +72,11 @@ export class ScanService {
       this.logger.log('All stores already scanned. Returning cached results.');
       return results;
     }
-    
-    this.logger.log(`Scanning ${storesToScan.length} stores: ${storesToScan.join(', ')}`);
-    
+
+    this.logger.log(
+      `Scanning ${storesToScan.length} stores: ${storesToScan.join(', ')}`,
+    );
+
     // Create scan promises for only the stores that need scanning
     const scanPromises = storesToScan.map(async (store) => {
       try {
@@ -100,7 +104,7 @@ export class ScanService {
         return [];
       }
     });
-    
+
     const scanResults = await Promise.allSettled(scanPromises);
 
     // Aggregate results from successful scans
@@ -109,15 +113,18 @@ export class ScanService {
       if (result.status === 'fulfilled') {
         newResults.push(...result.value);
       } else {
-        this.logger.error(`Scan failed for ${storesToScan[index]}:`, result.reason);
+        this.logger.error(
+          `Scan failed for ${storesToScan[index]}:`,
+          result.reason,
+        );
       }
     });
-    
+
     const totalResults = [...results, ...newResults];
     this.logger.log(
       `Scan completed. Found ${newResults.length} new items, ${totalResults.length} total items`,
     );
-    
+
     return totalResults;
   }
 }
